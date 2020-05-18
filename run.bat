@@ -1,4 +1,4 @@
 echo off
 SET NAME= kaguratama
 echo on
-TeaMessage_Search.exe %NAME%
+Tea_monitor.exe %NAME%
