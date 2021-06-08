@@ -1,4 +1,4 @@
-SET name=kaguratama
+SET name=´¿´âÖ®ºü
 cls
-main.exe %name%
+Tea_monitor.exe %name%
 pause
