@@ -1,4 +1,3 @@
-
 package main
 import (
     "encoding/json"
@@ -23,16 +22,9 @@ type LAEdata struct {
     apm float32
     eff float32
 }
-func calc_data(data []TeaData,i int) LAEdata{
-    var laedata LAEdata
-    laedata.lpm = 24000*float32(data[i].Pieces)/float32(data[i].Time)
-    laedata.apm = 60000*float32(data[i].Attack)/float32(data[i].Time)
-    laedata.eff = laedata.apm/laedata.lpm
-    return laedata
-
-}
-func getjson(name string)  []TeaData{
-    var data []TeaData
+var data []TeaData
+func getjson(name string) []TeaData{
+    var o_data []TeaData
     params := url.Values{}
     Url, err := url.Parse("http://121.4.147.128:8888/getProfile")
     if err != nil {
@@ -45,22 +37,50 @@ func getjson(name string)  []TeaData{
     resp, err := http.Get(urlPath)
     defer resp.Body.Close()
     body, err := ioutil.ReadAll(resp.Body)
-    json.Unmarshal(body, &data)
+    json.Unmarshal(body, &o_data)
     if err != nil {
         fmt.Println("some error")
     }
-    return data
+    return o_data
+}
+func calc_data(i int) LAEdata{
+    var laedata LAEdata
+    laedata.lpm = 24000*float32(data[i].Pieces)/float32(data[i].Time)
+    laedata.apm = 60000*float32(data[i].Attack)/float32(data[i].Time)
+    laedata.eff = laedata.apm/laedata.lpm
+    return laedata
+}
+
+func get_ft_data(idx int){
+    var laedata LAEdata
+    var sum LAEdata
+    var win,los int=0,0
+    for i:=0;win!=idx&&los!=idx;i++{
+        laedata = calc_data(i)
+        sum.lpm+=laedata.lpm
+        sum.apm+=laedata.apm
+        sum.eff+=laedata.eff
+        if data[i].Place==1{
+            fmt.Printf("\033[32m %0.3f\t%0.3f\t%0.3f \033[0m \n",laedata.lpm,laedata.apm,laedata.eff)
+            win+=1
+        }else{
+            fmt.Printf(" %0.3f\t%0.3f\t%0.3f\n",laedata.lpm,laedata.apm,laedata.eff)
+            los+=1
+        }
+    }
+    if win==idx{
+        fmt.Printf("Win[%d:%d]\n",win,los)
+    }else if los==idx{
+        fmt.Printf("Lost[%d:%d]\n",win,los)
+    }
+    fmt.Printf("[lpm:%0.3f][apm:%0.3f][eff:%0.3f]",sum.lpm/float32(win+los),sum.apm/float32(win+los),sum.eff/float32(win+los))
+
 }
 func main() {
-    var data []TeaData
-    var laedata LAEdata
-    //var now_game int = 0
     var name string = os.Args[1]
-    fmt.Printf("LPM\tAPM\tEFF\n")
+    fmt.Printf(" LPM\tAPM\tEFF\n")
     //now_game = getjson(name)[0].Idmultiplayergameresult
     data = getjson(name)
-    for i:=0;i<15;i++{
-    laedata = calc_data(data,i)
-    fmt.Printf("%0.3f\t%0.3f\t%0.3f\n",laedata.lpm,laedata.apm,laedata.eff)
-    }
+    get_ft_data(15)
+
 }
