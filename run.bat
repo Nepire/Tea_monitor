@@ -1,4 +1,4 @@
-echo off
-SET NAME= kaguratama
-echo on
-Tea_monitor.exe %NAME%
+SET name=kaguratama
+cls
+main.exe %name%
+pause
