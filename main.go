@@ -61,7 +61,7 @@ func get_ft_data(idx int){
         sum.apm+=laedata.apm
         sum.eff+=laedata.eff
         if data[i].Place==1{
-            fmt.Printf("\033[32m %0.3f\t%0.3f\t%0.3f \033[0m \n",laedata.lpm,laedata.apm,laedata.eff)
+            fmt.Printf(" %0.3f\t%0.3f\t%0.3f\n",laedata.lpm,laedata.apm,laedata.eff)
             win+=1
         }else{
             fmt.Printf(" %0.3f\t%0.3f\t%0.3f\n",laedata.lpm,laedata.apm,laedata.eff)
