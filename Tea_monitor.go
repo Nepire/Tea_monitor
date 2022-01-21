@@ -26,7 +26,7 @@ var data []TeaData
 func getjson(name string) []TeaData{
     var o_data []TeaData
     params := url.Values{}
-    Url, err := url.Parse("http://121.4.147.128:8888/getProfile")
+    Url, err := url.Parse("https://121.4.147.128:8888/getProfile")
     if err != nil {
         fmt.Println("some error")
     }
@@ -61,7 +61,7 @@ func get_ft_data(idx int){
         sum.apm+=laedata.apm
         sum.eff+=laedata.eff
         if data[i].Place==1{
-            fmt.Printf(" %0.3f\t%0.3f\t%0.3f\n",laedata.lpm,laedata.apm,laedata.eff)
+            fmt.Printf("\033[32m %0.3f\t%0.3f\t%0.3f \033[0m \n",laedata.lpm,laedata.apm,laedata.eff)
             win+=1
         }else{
             fmt.Printf(" %0.3f\t%0.3f\t%0.3f\n",laedata.lpm,laedata.apm,laedata.eff)

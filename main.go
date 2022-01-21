@@ -26,7 +26,7 @@ var data []TeaData
 func getjson(name string) []TeaData{
     var o_data []TeaData
     params := url.Values{}
-    Url, err := url.Parse("http://121.4.147.128:8888/getProfile")
+    Url, err := url.Parse("https://121.4.147.128:8888/getProfile")
     if err != nil {
         fmt.Println("some error")
     }
