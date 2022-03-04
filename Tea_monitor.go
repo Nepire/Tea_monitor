@@ -55,6 +55,9 @@ func calc_data(i int) LAEdata {
 	laedata.lpm = 24000 * float32(data[i].Pieces) / float32(data[i].Time)
 	laedata.apm = 60000 * float32(data[i].Attack) / float32(data[i].Time)
 	laedata.eff = laedata.apm / laedata.lpm
+	if laedata.lpm == 0 {
+		laedata.eff = 0
+	}
 	return laedata
 }
 
