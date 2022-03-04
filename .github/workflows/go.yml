@@ -27,5 +27,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
-        name: Tea_moniter.exe
-        path: .\Tea_moniter.exe
+        name: Tea_monitor.exe
+        path: .\Tea_monitor.exe
