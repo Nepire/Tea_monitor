@@ -24,7 +24,7 @@ jobs:
     - name: Test
       run: go test Tea_monitor.go
 
-    - name: Uploa=
+    - name: Upload
       uses: actions/upload-artifact@v2
       with:
         name: Tea_moniter.exe
