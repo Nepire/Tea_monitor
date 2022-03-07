@@ -1,0 +1,31 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Build
+      run: go build Tea_monitor.go
+
+    - name: Test
+      run: go test Tea_monitor.go
+
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: Tea_monitor.exe
+        path: .\Tea_monitor.exe
